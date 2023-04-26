@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cchhtginyk8xe"]
+
+[ext_resource type="Texture2D" uid="uid://ctaw3sy1ivcvt" path="res://Assets/Images/Attack/microwave.png" id="1_qsdwh"]
+
+[node name="Microwave" type="RayCast2D"]
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qsdwh")

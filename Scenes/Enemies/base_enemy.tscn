@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://spdkdee78rve"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/BaseEnemy.gd" id="1_1wna4"]
+[ext_resource type="Texture2D" uid="uid://fxtoqfvpnov2" path="res://Assets/Images/Characters/Enemies/enemy.png" id="1_ktyvq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gx6ho"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lo323"]
+
+[node name="BaseEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_1wna4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ktyvq")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+horizontal_alignment = 1
+
+[node name="EnemyArea2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea2D"]
+shape = SubResource("CircleShape2D_gx6ho")
+one_way_collision_margin = 0.0
+debug_color = Color(0.905882, 0.262745, 0.415686, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lo323")
+one_way_collision_margin = 0.0
+debug_color = Color(0.905882, 0.262745, 0.415686, 0.419608)
+
+[connection signal="area_entered" from="EnemyArea2D" to="." method="_on_area_2d_area_entered"]

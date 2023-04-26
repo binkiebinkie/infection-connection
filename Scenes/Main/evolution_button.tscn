@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuh8b8oit2c8d"]
+
+[ext_resource type="Texture2D" uid="uid://dhd6jwailh7pt" path="res://Assets/Images/Game/EvolutionButton.png" id="1_cm1c2"]
+[ext_resource type="Script" path="res://Scripts/Main/EvolutionButton.gd" id="2_jimi2"]
+
+[node name="EvolutionButton" type="Button"]
+z_index = 110
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -2778.0
+offset_right = -2738.0
+offset_bottom = 40.0
+grow_horizontal = 0
+icon = ExtResource("1_cm1c2")
+script = ExtResource("2_jimi2")
+
+[node name="EvolutionCount" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
