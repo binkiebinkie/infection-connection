@@ -1,4 +1,4 @@
-extends UpgradeableAttack
+extends Attack
 
 const FartAttack = preload("res://Scripts/Attacks/Fart.gd")
 
@@ -38,11 +38,18 @@ func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_ty
 		FartUpgrade.new(func(attack): attack.size *= 1 + AREA_INCREASE),
 		FartUpgrade.new(func(attack): attack.cooldown *= 1 - COOLDOWN_REDUCTION_2),
 	]
+	
+	option_name = "Fart"
+	description = "Poot poooot, poison cloud incoming"
+	icon_path = "res://Assets/Images/Attack/fart.png"
 
+#func activate(target_position, target_direction, tree):
+#	spawn_fart(target_position, -target_direction)
 func activate(target_position, target_direction):
-	spawn_fart(target_position, -target_direction)
+	super.activate(target_position, target_direction)
+	_spawn_attack(target_position, target_direction)
 
-func spawn_fart(position, direction):
+func _spawn_attack(position, direction):
 	var fart_scene = load("res://Scenes/Attacks/Fart.tscn")
 	var fart_instance = fart_scene.instance()
 	

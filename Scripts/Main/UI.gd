@@ -15,3 +15,5 @@ func update_evolution_count(count: int):
 
 func _on_evolution_button_pressed():
 	evolution_drawer.show_drawer(player.get_queued_evolutions_count())
+	evolution_drawer.update_evolution_options($"/root/Game/Player".queued_evolutions)
+

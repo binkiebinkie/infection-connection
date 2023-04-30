@@ -5,9 +5,10 @@ extends BaseModifier
 const PIERCE_INCREASE = 2
 
 func _init():
-	name = "Piercing Increase"
-	description = "Increases the number of enemies that projectiles can pierce."
-
+	option_name = "Pierce"
+	description = "Attack goes through multiple enemies."
+	icon_path = "res://Assets/Images/Modifiers/IconPierce.png"
+	
 func apply(player):
 	for attack in player.attacks:
 		attack.pierce += PIERCE_INCREASE * level

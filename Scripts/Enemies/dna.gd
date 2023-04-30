@@ -1,7 +1,7 @@
 extends Node2D
 
 const PICKUP_RADIUS = 300.0
-const PICKUP_SPEED = 2000.0
+const PICKUP_SPEED = 500.0
 const DNA_VALUE = 1
 
 @onready var player = get_node("/root/Game/Player")

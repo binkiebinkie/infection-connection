@@ -1,8 +1,10 @@
 class_name BaseModifier
 extends EvolveOption
 
+
 func apply(player):
 	pass
+
 
 #Area of attack (size)
 #Damage
@@ -17,5 +19,4 @@ func apply(player):
 #Shield #Adds a temporary shield that absorbs incoming damage, protecting the player's health.
 #Chain lightning #Attacks have a chance to create a chain reaction, hitting multiple nearby enemies.
 #Splash damage #Attacks deal a percentage of their damage to enemies in a small area around the target.
-
 

@@ -1,12 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://bg36fu2oekapq"]
+[gd_scene load_steps=15 format=3 uid="uid://ev7ks8xgonck"]
 
-[ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_dx26t"]
 [ext_resource type="Texture2D" uid="uid://h3iktybsq3ky" path="res://Assets/Images/Characters/Player/virus.png" id="1_kp1uf"]
 [ext_resource type="Script" path="res://Scripts/Main/game.gd" id="1_tt6dr"]
 [ext_resource type="Script" path="res://Scripts/Main/VirtualJoystick.gd" id="2_nu77d"]
+[ext_resource type="Script" path="res://Scripts/Characters/Player.gd" id="3_ah354"]
 [ext_resource type="Script" path="res://Scripts/Maps/Background.gd" id="3_ofmbh"]
 [ext_resource type="Texture2D" uid="uid://bkas1hityw13k" path="res://Assets/Images/Backgrounds/Man.png" id="3_wgp3x"]
 [ext_resource type="Script" path="res://Scenes/Main/AttackController.gd" id="4_mm50d"]
+[ext_resource type="Script" path="res://Scripts/Characters/Character.gd" id="5_kjv33"]
 [ext_resource type="Script" path="res://Scenes/Main/WaveManager.gd" id="6_kx6dv"]
 [ext_resource type="Script" path="res://Scripts/Main/EvolutionButton.gd" id="9_bal1w"]
 [ext_resource type="Texture2D" uid="uid://dhd6jwailh7pt" path="res://Assets/Images/Game/EvolutionButton.png" id="9_kg7f5"]
@@ -20,7 +21,7 @@ script = ExtResource("1_tt6dr")
 
 [node name="Player" type="Sprite2D" parent="."]
 texture = ExtResource("1_kp1uf")
-script = ExtResource("1_dx26t")
+script = ExtResource("3_ah354")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
@@ -35,8 +36,11 @@ collision_mask = 11
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
 shape = SubResource("CircleShape2D_0a1dg")
 
-[node name="Node2D" type="Node2D" parent="Player"]
+[node name="AttackController" type="Node2D" parent="Player"]
 script = ExtResource("4_mm50d")
+
+[node name="Character" type="Node2D" parent="Player"]
+script = ExtResource("5_kjv33")
 
 [node name="VirtualJoystick" type="Control" parent="."]
 layout_mode = 3
@@ -99,26 +103,36 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 
 [node name="EvolutionDrawer" type="Panel" parent="UICamera/UI"]
 z_index = 100
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 0
-offset_right = 250.0
+offset_right = 400.0
 script = ExtResource("11_ds7mv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UICamera/UI/EvolutionDrawer"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 20
 
 [node name="CloseButton" type="Button" parent="UICamera/UI/EvolutionDrawer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -18.0
-offset_bottom = 31.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -31.0
 grow_horizontal = 0
+grow_vertical = 0
 text = "X"
 
 [node name="NoEvolutionsMessage" type="Label" parent="UICamera/UI/EvolutionDrawer"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
+offset_top = 35.0
+offset_right = 166.0
+offset_bottom = 61.0
 text = "Collect DNA to Evolve"
 
 [connection signal="pressed" from="UICamera/UI/MarginContainer/VBoxContainer/EvolutionButton" to="UICamera/UI" method="_on_evolution_button_pressed"]

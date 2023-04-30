@@ -1,7 +1,11 @@
-extends BaseAttack
+extends Attack
 
-const NUM_RAYS = 10
-
+const NUM_RAYS = 2
+class MicrowaveUpgrade:
+	var apply
+	func _init(_apply):
+		apply = _apply
+		
 func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_type: String, _critical_chance_multiplier: float, _pierce: int, _duration: int, _cooldown: int):
 	damage = _damage
 	speed = _speed
@@ -12,12 +16,31 @@ func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_ty
 	pierce = _pierce
 	duration = _duration
 	cooldown = _cooldown
+	
+	option_name = "Microwave"
+	description = "Zap your enemies with many rays"
+	icon_path = "res://Assets/Images/Attacks/microwave.png"
+	
+	upgrades = [
+		MicrowaveUpgrade.new(func(attack): attack.amount += 2),
+		MicrowaveUpgrade.new(func(attack): attack.amount += 2),
+		MicrowaveUpgrade.new(func(attack): attack.pierce += 3),
+		MicrowaveUpgrade.new(func(attack): attack.damage *= 1.25),
+		MicrowaveUpgrade.new(func(attack): attack.duration *= 1.5),
+		MicrowaveUpgrade.new(func(attack): attack.speed *= 1.3),
+		MicrowaveUpgrade.new(func(attack): attack.cooldown *= 0.7)
+	]
 
 func activate(target_position, target_direction):
+	super.activate(target_position, target_direction)
 	for i in range(NUM_RAYS):
 		var random_angle = randf_range(-PI, PI)
 		var random_direction = Vector2(cos(random_angle), sin(random_angle))
-		spawn_ray(target_position, random_direction)
+		_spawn_attack(target_position, random_direction)
+
+#func activate(target_position, target_direction):
+#	super.activate(target_position, target_direction)
+#	_spawn_attack(target_position, target_direction)
 
 func spawn_ray(position, direction):
 	var microwave_ray_scene = load("res://Scenes/Attacks/MicrowaveRay.tscn")

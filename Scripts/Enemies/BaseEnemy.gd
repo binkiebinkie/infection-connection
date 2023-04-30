@@ -12,7 +12,6 @@ extends CharacterBody2D
 var invincibility_timer: float = 0.0
 var invincibility_duration: float = 0.3
 
-
 func _ready():
 	scale = size
 
@@ -31,14 +30,14 @@ func _on_area_2d_area_entered(area):
 		player.take_damage(damage)
 		invincibility_timer = invincibility_duration
 	elif area.is_in_group("projectiles"):
-		take_damage(area.damage)
+		take_damage(area.attack_data.damage, area.attack_data.damage_type)
 		area.queue_free()
 
 func default_movement_pattern(delta):
 	var direction = (player.position - position).normalized()
 	position += direction * speed * delta
 
-func take_damage(damage_amount):
+func take_damage(damage_amount, damage_type):
 	health -= damage_amount
 	update_health_label() 
 	if health <= 0:

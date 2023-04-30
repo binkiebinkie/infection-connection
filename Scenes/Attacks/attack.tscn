@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bajb3vcyh0j44"]
+
+[ext_resource type="Script" path="res://Scripts/Attacks/Attack.gd" id="1_52rhq"]
+
+[node name="Attack" type="Node2D"]
+script = ExtResource("1_52rhq")
+
+[node name="DurationTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimeoutTimer" type="Timer" parent="."]

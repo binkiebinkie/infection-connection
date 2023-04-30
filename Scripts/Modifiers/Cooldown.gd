@@ -1,12 +1,12 @@
 # Cooldown.gd
 
 extends BaseModifier
-
-const COOLDOWN_REDUCTION_PERCENTAGE = 0.25 # 25%
+const COOLDOWN_REDUCTION_PERCENTAGE = 0.25
 
 func _init():
-	name = "Cooldown Reduction"
+	option_name = "Cooldown Reduction"
 	description = "Reduces the cooldown between attacks."
+	icon_path = "res://Assets/Images/Modifiers/IconCooldown.png"
 
 func apply(player):
 	for attack in player.attacks:

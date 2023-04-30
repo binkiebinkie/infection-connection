@@ -9,7 +9,7 @@ var duration: int
 
 func _ready():
 	timer.start(duration)
-	timer.timeout.connect(on_timer_timeout)
+	timer.timeout.connect(_on_Timer_timeout)
 
 func _physics_process(delta):
 	position += direction * speed * delta
