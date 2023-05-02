@@ -17,6 +17,5 @@ func level_up():
 	if level > max_level:
 		level = max_level
 
-# Add the get_icon method
 func get_icon() -> Texture:
 	return load(icon_path)

@@ -5,7 +5,7 @@ var player: Node2D
 var speed: float = 1000.0
 var health: int = 100
 var level: int = 1
-var starting_attack = null
+var starting_attack: Attack = null
 
 var attacks = []
 var last_non_zero_input_direction: Vector2 = Vector2(1,0)

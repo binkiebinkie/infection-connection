@@ -1,19 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://t5hdmtf0q6ui"]
+[gd_scene load_steps=5 format=3 uid="uid://byufcjjrjp7d"]
 
+[ext_resource type="Script" path="res://Scripts/Attacks/Pill.gd" id="1_6jslh"]
 [ext_resource type="Script" path="res://Scripts/Attacks/PillArea.gd" id="1_uroi0"]
-[ext_resource type="Texture2D" uid="uid://c2hy85aqw1bo4" path="res://Assets/Images/Attack/pill.png" id="2_xt67m"]
+[ext_resource type="Texture2D" uid="uid://c2hy85aqw1bo4" path="res://Assets/Images/Attack/Pill.png" id="2_tu3ct"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_nsfw1"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_kp3s6"]
 
-[node name="PillArea" type="Area2D"]
+[node name="Pill" type="Node2D"]
+script = ExtResource("1_6jslh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tu3ct")
+
+[node name="PillArea" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_uroi0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_xt67m")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PillArea"]
+shape = SubResource("CircleShape2D_kp3s6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_nsfw1")
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="body_entered" from="PillArea" to="." method="_on_pill_area_body_entered"]

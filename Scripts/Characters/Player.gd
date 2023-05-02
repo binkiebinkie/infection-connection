@@ -1,12 +1,13 @@
+class_name Player
 extends Node2D
-var character = Global.selected_character.new()
 
 @onready var virtual_joystick: Node = get_node("/root/Game/VirtualJoystick")
 @onready var health_label = get_node("/root/Game/Player/Camera2D/HealthLabel")
 @onready var dna_label = get_node("/root/Game/UICamera/UI/DNALabel")
 @onready var evolve_options = []
-@onready var evolution_manager = EvolutionManager.new()
 @onready var attack_pool = AttackPool.new()
+@onready var evolution_manager = EvolutionManager.new(attack_pool)
+@onready var evolution_drawer = EvolutionDrawer.new(evolution_manager)
 const EvolutionManager = preload("res://Scripts/Main/EvolutionManager.gd")
 var last_shot_time: float = 0.0
 var dna: int = 0
@@ -15,6 +16,7 @@ var queued_evolutions_count: int = 1
 var queued_evolutions = []
 var attacks = []
 var last_non_zero_input_direction: Vector2 = Vector2(1,0)
+var character = await Global.selected_character.new(attack_pool)  # pass the attack_pool instance
 
 signal player_evolved(queued_evolutions_count)
 
@@ -25,8 +27,12 @@ func _ready():
 	var map_size = Vector2(map_width, map_height)
 	position = map_size / 2
 	character.initialize(self)
+	print('character',character)
+	print('character',character.starting_attack)
 	character.add_attack(character.starting_attack, attack_pool)
-	character.connect("projectile_duration_reached", _on_projectile_duration_reached)
+	character.starting_attack.connect("projectile_duration_reached", _on_projectile_duration_reached)
+	print('character.starting_attack',character.starting_attack)
+	attack_pool.add_to_pool(character.starting_attack)	
 	add_child(character)
 	
 func _physics_process(delta: float):

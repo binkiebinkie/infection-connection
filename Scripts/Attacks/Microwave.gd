@@ -6,7 +6,7 @@ class MicrowaveUpgrade:
 	func _init(_apply):
 		apply = _apply
 		
-func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_type: String, _critical_chance_multiplier: float, _pierce: int, _duration: int, _cooldown: int):
+func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_type: String, _critical_chance_multiplier: float, _pierce: int, _duration: int, _cooldown: int, _attack_pool):
 	damage = _damage
 	speed = _speed
 	size = _size
@@ -16,7 +16,7 @@ func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_ty
 	pierce = _pierce
 	duration = _duration
 	cooldown = _cooldown
-	
+	attack_pool = _attack_pool
 	option_name = "Microwave"
 	description = "Zap your enemies with many rays"
 	icon_path = "res://Assets/Images/Attacks/microwave.png"

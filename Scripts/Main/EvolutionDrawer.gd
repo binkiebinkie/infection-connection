@@ -1,4 +1,6 @@
+class_name EvolutionDrawer
 extends Panel
+@onready var player = get_node('../../Player')
 
 enum DrawerState {HIDDEN, VISIBLE}
 var drawer_state = DrawerState.HIDDEN
@@ -7,7 +9,10 @@ var hidden_rect: Rect2
 var slide_duration: float = 0.2
 var elapsed_time: float = 0
 var animating = false
-var player
+var evolution_manager
+
+func _init(_evolution_manager):
+	evolution_manager = _evolution_manager
 
 func _ready():
 	custom_minimum_size = Vector2(400, get_viewport_rect().size.y)
@@ -76,10 +81,10 @@ func update_evolution_options(queued_evolutions):
 
 func _on_option_button_pressed(option: EvolveOption):
 	player.apply_evolve_option(option)
-	var evolution_manager = EvolutionManager.new()
 	var next_evolutions = evolution_manager.generate_evolve_options(player)
 	update_evolution_options(next_evolutions)
 	if next_evolutions.empty():
 		_on_close_button_pressed()
 
-
+func set_player(value):
+	player = value

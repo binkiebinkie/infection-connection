@@ -21,6 +21,7 @@ var duration_timer: Timer
 var attack_pool
 
 func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_type: String, _critical_chance_multiplier: float, _pierce: int, _duration: float, _cooldown: float, _attack_pool):
+	print('sdfsaddasssadf')
 	damage = _damage 
 	speed = _speed
 	size = _size
@@ -31,9 +32,12 @@ func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_ty
 	duration = _duration
 	cooldown = _cooldown
 	attack_pool = _attack_pool
+	duration_timer = get_node("DurationTimer")
+	print('dduration_timer',duration_timer)
 
 func _ready():
-	duration_timer = get_node("DurationTimer")
+	print('attaceawwcwc')
+	pass
 
 func _on_projectile_duration_timeout():
 	print('timed out')
@@ -42,21 +46,21 @@ func _on_projectile_duration_timeout():
 func reset():
 	state = ATTACK_STATES.STATE_READY
 	cooldown_timer = 0
-	duration_timer.stop()
+	if duration_timer:
+		duration_timer.stop()
 
 func activate(target_position, target_direction):
+	print('amount', amount)
 	for _i in range(amount):
-		_spawn_attack(target_position, target_direction)
-		print('activate attack')
+		print('_i',_i)
 		_spawn_attack(target_position, target_direction)
 		print('duration', duration)
-		print('tree exists')
 		var timeout_timer = Timer.new()
-		timeout_timer.set_wait_time(duration)
-		timeout_timer.set_one_shot(true)
-		timeout_timer.connect("timeout", Callable(self, "_on_projectile_duration_timeout"))
+		timeout_timer.wait_time = duration
+		timeout_timer.one_shot = true
+		timeout_timer.connect("timeout", _on_projectile_duration_timeout)
+		timeout_timer.autostart = true
 		add_child(timeout_timer)
-		timeout_timer.start()
 	
 func update(delta: float, character: Character, last_non_zero_input_direction: Vector2):
 	if state == ATTACK_STATES.STATE_COOLDOWN:
@@ -86,8 +90,9 @@ func level_up():
 			self.fully_evolved = true
 
 func _spawn_attack(target_position, target_direction):
-	var attack_instance = attack_pool.get_from_pool(Attack, [target_position, target_direction])
-	attack_instance.connect("projectile_duration_reached", _on_projectile_duration_timeout)
+	pass
+#	var attack_instance = attack_pool.get_from_pool('Attack', [target_position, target_direction])
+#	attack_instance.connect("projectile_duration_reached", _on_projectile_duration_timeout)
 
 func _on_body_entered(body):
 	if body.has_method("take_damage"):
@@ -96,3 +101,19 @@ func _on_body_entered(body):
 		pierce -= 1
 		if pierce <= 0:
 			emit_signal("projectile_duration_reached", self)
+
+func initialize(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_type: String, _critical_chance_multiplier: float, _pierce: int, _duration: float, _cooldown: float, _attack_pool):
+	print('ahsfasasffa')
+	damage = _damage
+	speed = _speed
+	size = _size
+	amount = _amount
+	damage_type = _damage_type
+	critical_chance_multiplier = _critical_chance_multiplier
+	pierce = _pierce
+	duration = _duration
+	cooldown = _cooldown
+	attack_pool = _attack_pool
+
+func _on_pill_area_body_entered(body):
+	pass # Replace with function body.
