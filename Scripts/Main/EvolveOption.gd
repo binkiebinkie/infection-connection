@@ -1,5 +1,4 @@
-# EvolveOption.gd
-
+# res://Scripts/Main/EvolveOption.gd - can be type Attack or Modifier, manages leveling and the text that displays
 class_name EvolveOption
 extends Node2D
 

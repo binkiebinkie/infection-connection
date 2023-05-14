@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://4m60863evugb"]
+[gd_scene load_steps=5 format=3 uid="uid://bxbbwb2gyai0r"]
 
 [ext_resource type="Script" path="res://Scripts/Attacks/Pill.gd" id="1_fip6x"]
 [ext_resource type="Texture2D" uid="uid://c2hy85aqw1bo4" path="res://Assets/Images/Attack/Pill.png" id="2_c5txt"]

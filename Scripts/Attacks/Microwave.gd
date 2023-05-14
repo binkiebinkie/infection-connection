@@ -31,12 +31,12 @@ func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_ty
 		MicrowaveUpgrade.new(func(attack): attack.cooldown *= 0.7)
 	]
 
-func activate(target_position, target_direction):
-	super.activate(target_position, target_direction)
-	for i in range(NUM_RAYS):
-		var random_angle = randf_range(-PI, PI)
-		var random_direction = Vector2(cos(random_angle), sin(random_angle))
-		_spawn_attack(target_position, random_direction)
+#func activate(target_position, target_direction, player):
+#	super.activate(target_position, target_direction, player)
+#	for i in range(NUM_RAYS):
+#		var random_angle = randf_range(-PI, PI)
+#		var random_direction = Vector2(cos(random_angle), sin(random_angle))
+#		_spawn_attack(target_position, random_direction, player)
 
 #func activate(target_position, target_direction):
 #	super.activate(target_position, target_direction)

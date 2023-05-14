@@ -6,3 +6,4 @@ func array_difference(a1: Array, a2: Array) -> Array:
 		if not a2.has(item):
 			diff.append(item)
 	return diff
+

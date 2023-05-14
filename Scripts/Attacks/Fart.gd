@@ -39,20 +39,20 @@ func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_ty
 	description = "Poot poooot, poison cloud incoming"
 	icon_path = "res://Assets/Images/Attack/fart.png"
 
-func activate(target_position, target_direction):
-	super.activate(target_position, target_direction)
-	_spawn_attack(target_position, target_direction)
-
-func _spawn_attack(position, direction):
-	print('attack_pool',attack_pool)
-	var fart_instance = attack_pool.get_from_pool(attack_type, [damage, speed, size, amount, damage_type, critical_chance_multiplier, pierce, duration, cooldown])
-	
-	fart_instance.position = position
-	fart_instance.direction = direction
-	fart_instance.duration = duration
-	fart_instance.damage = damage
-	fart_instance.speed = speed
-#	fart_instance.attack_data = self
-	
-	var current_scene = Global.get_current_scene()
-	current_scene.add_child(fart_instance)
+#func activate(target_position, target_direction, player):
+#	super.activate(target_position, target_direction, player)
+#	_spawn_attack(target_position, target_direction, player)
+#
+#func _spawn_attack(position, direction, player):
+#	print('attack_pool',attack_pool)
+#	var fart_instance = attack_pool.get_from_pool(attack_type, [damage, speed, size, amount, damage_type, critical_chance_multiplier, pierce, duration, cooldown])
+#
+#	fart_instance.position = position
+#	fart_instance.direction = direction
+#	fart_instance.duration = duration
+#	fart_instance.damage = damage
+#	fart_instance.speed = speed
+##	fart_instance.attack_data = self
+#
+#	var current_scene = Global.get_current_scene()
+#	current_scene.add_child(fart_instance)
