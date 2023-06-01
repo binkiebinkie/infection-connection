@@ -19,8 +19,8 @@ class FartUpgrade:
 func _process(delta):
 	position += direction * speed * delta
 
-func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_type: String, _critical_chance_multiplier: float, _pierce: int, _duration: int, _cooldown: int, _attack_pool):
-	attack_pool = _attack_pool
+func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_type: String, _critical_chance_multiplier: float, _pierce: int, _duration: int, _cooldown: int):
+#	attack_pool = _attack_pool
 	upgrades = [
 		FartUpgrade.new(func(attack): attack.duration *= 1 + DURATION_INCREASE),
 		FartUpgrade.new(func(attack): attack.damage *= 1 + DAMAGE_INCREASE),
@@ -28,7 +28,7 @@ func _init(_damage: int, _speed: float, _size: Vector2, _amount: int, _damage_ty
 		FartUpgrade.new(func(attack): attack.cooldown *= 1 - COOLDOWN_REDUCTION_1),
 		FartUpgrade.new(func(attack): attack.speed *= 1 + SPEED_INCREASE),
 		FartUpgrade.new(func(attack):
-			var new_fart = FartAttack.new(attack.damage, attack.speed, attack.size, attack.amount, attack.damage_type, attack.critical_chance_multiplier, attack.pierce, attack.duration, attack.cooldown, attack_pool)
+			var new_fart = FartAttack.new(attack.damage, attack.speed, attack.size, attack.amount, attack.damage_type, attack.critical_chance_multiplier, attack.pierce, attack.duration, attack.cooldown)
 			new_fart.global_position = attack.global_position.rotated(deg_to_rad(45))
 			get_parent().add_child(new_fart)),
 		FartUpgrade.new(func(attack): attack.size *= 1 + AREA_INCREASE),

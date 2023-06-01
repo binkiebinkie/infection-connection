@@ -1,12 +1,11 @@
 # res://Scripts/Characters/Virus.gd - Character type instance
 extends Character
 var AttackFactory = preload("res://Scripts/Attacks/AttackFactory.gd").new()
-var attack_pool
-func _init(_attack_pool = []):
+
+func _init():
 	level = 1
 	speed = 1000.0
-	attack_pool = _attack_pool
-	starting_attack = AttackFactory.create_attack("Pill", _attack_pool, Global.DefaultAttacks.DEFAULT_PILL_ATTACKS)
+	starting_attack = AttackFactory.create_attack("Pill", Global.DefaultAttacks.DEFAULT_PILL_ATTACKS)
 
 
 #extends Character
@@ -22,7 +21,7 @@ func _init(_attack_pool = []):
 #	starting_attack.size = size
 #	starting_attack.amount = amount
 #	starting_attack.damage_type = damage_type
-#	starting_attack.critical_chance_multiplier = critical_chance_multiplier
+#	starting_attack.e = critical_chance_multiplier
 #	starting_attack.pierce = pierce
 #	starting_attack.duration = duration
 #	starting_attack.cooldown = cooldown

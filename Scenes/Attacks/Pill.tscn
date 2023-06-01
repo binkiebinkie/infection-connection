@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://gdffh7hfqtnm"]
+[gd_scene load_steps=5 format=3 uid="uid://gdffh7hfqtnm"]
 
 [ext_resource type="Script" path="res://Scripts/Attacks/Pill.gd" id="1_6jslh"]
-[ext_resource type="PackedScene" uid="uid://ccmounldqi46o" path="res://Scenes/Attacks/Attack.tscn" id="1_53to1"]
 [ext_resource type="Script" path="res://Scripts/Attacks/PillArea.gd" id="1_uroi0"]
 [ext_resource type="Texture2D" uid="uid://c2hy85aqw1bo4" path="res://Assets/Images/Attack/Pill.png" id="2_tu3ct"]
 
@@ -9,8 +8,6 @@
 
 [node name="Pill" type="Node2D"]
 script = ExtResource("1_6jslh")
-
-[node name="Attack" parent="." instance=ExtResource("1_53to1")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_tu3ct")
@@ -27,5 +24,4 @@ shape = SubResource("CircleShape2D_kp3s6")
 autostart = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
-[connection signal="body_entered" from="PillArea" to="Attack" method="_on_body_entered"]
-[connection signal="timeout" from="DurationTimer" to="Attack" method="_on_duration_timer_timeout"]
+[connection signal="body_entered" from="PillArea" to="." method="_on_pill_area_body_entered"]

@@ -1,4 +1,5 @@
-# res://Scripts/Characters/Player.gd - child of res://Scenes/Main/game.tscn
+# res://Scripts/Characters/Player.gd - child of res://Scenes/Main/game.tscn/
+# responsible for character/player movement and attack spawning
 class_name Player
 extends Node2D
 
@@ -6,8 +7,8 @@ extends Node2D
 @onready var health_label = get_node("/root/Game/Player/Camera2D/HealthLabel")
 @onready var dna_label = get_node("/root/Game/UICamera/UI/DNALabel")
 @onready var evolve_options = []
-@onready var attack_pool = get_node("/root/Game/AttackPool")
-@onready var evolution_manager = EvolutionManager.new(attack_pool)
+@onready var attack_manager = get_node("/root/Game/AttackManager")
+@onready var evolution_manager = EvolutionManager.new()
 @onready var evolution_drawer = EvolutionDrawer.new(evolution_manager)
 const EvolutionManager = preload("res://Scripts/Main/EvolutionManager.gd")
 var last_shot_time: float = 0.0
@@ -18,20 +19,16 @@ var queued_evolutions = []
 var attacks = []
 var last_non_zero_input_direction: Vector2 = Vector2(1,0)
 var character
-
 signal player_evolved(queued_evolutions_count)
 
 func _ready():
 	if not Global.selected_character:
 		print('not')
 		Global.selected_character = preload("res://Scripts/Characters/Virus.gd")
-	character = Global.selected_character.new(attack_pool)
-
 	_manage_position()
 	_manage_character()
 	
 func _manage_position():
-	print('_manage_position Player')
 	var map_node = get_node("../Background")
 	var map_width = map_node.texture.get_width()
 	var map_height = map_node.texture.get_height()
@@ -39,22 +36,18 @@ func _manage_position():
 	position = map_size / 2
 	
 func _manage_character():
+	if !character: 
+		character = Global.selected_character.new()	
 	character.initialize(self)
-	print('character',character)
-	character.add_attack(character.starting_attack, attack_pool)
-	print('character.starting_attack',character.starting_attack)
-	attack_pool.add_to_pool(character.starting_attack)	
-	print('attack_pool',attack_pool)
+	character.add_attack(character.starting_attack)
 
 func _on_character_ready():
 	add_child(character)
 	
 func _physics_process(delta: float):
 	var input_direction = -virtual_joystick.get_input_direction()
-
 	if input_direction != Vector2.ZERO:
 		last_non_zero_input_direction = input_direction
-		print("last_non_zero_input_direction set to: ", input_direction, 'asdgasf asdfasdf',last_non_zero_input_direction)
 		var angle = atan2(input_direction.y, input_direction.x)
 		self.rotation = angle
 		position += input_direction * character.speed * delta
@@ -64,11 +57,15 @@ func _physics_process(delta: float):
 		var map_height = map_node.texture.get_height()
 		position.x = clamp(position.x, 0, map_width)
 		position.y = clamp(position.y, 0, map_height)
-
-	for attack in character.attacks:
+		GlobalPlayer.direction = last_non_zero_input_direction
+		GlobalPlayer.position = position
+		
+	for attack in attack_manager.get_children():
 		if is_instance_valid(attack):
-			attack.update(delta, character, character.last_non_zero_input_direction, self)
-
+			attack.update(delta, character, self)
+		if attack.state == Attack.ATTACK_STATES.STATE_READY:
+			attack.activate(self)
+	
 func take_damage(damage: int):
 	character.health -= damage
 	health_label.text = "Health: %s" % character.health
@@ -109,5 +106,4 @@ func get_queued_evolutions_count() -> int:
 	return queued_evolutions_count
 
 func get_direction() -> Vector2:
-	print("get_direction called, last_non_zero_input_direction: ", last_non_zero_input_direction)
 	return last_non_zero_input_direction

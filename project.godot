@@ -19,17 +19,23 @@ config/icon="res://icon.svg"
 
 GlobalHelpers="*res://Scripts/GlobalHelpers.gd"
 Global="*res://Scripts/Global.gd"
+GlobalPlayer="*res://Scripts/GlobalPlayer.gd"
+AttackManager="*res://Scripts/Attacks/AttackManager.gd"
 
 [display]
 
 window/size/viewport_width=2778
 window/size/viewport_height=1284
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/copilot/plugin.cfg")
+
 [layer_names]
 
 2d_physics/layer_1="player"
 2d_physics/layer_2="enemy"
-2d_physics/layer_3="projectile"
+2d_physics/layer_3="attacks"
 2d_physics/layer_4="pickups"
 
 [rendering]

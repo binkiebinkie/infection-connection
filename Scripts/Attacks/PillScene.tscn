@@ -10,6 +10,8 @@
 script = ExtResource("1_fip6x")
 
 [node name="PillArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("2_pip3e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PillArea"]
@@ -17,3 +19,5 @@ shape = SubResource("CircleShape2D_vpbqc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_c5txt")
+
+[connection signal="body_entered" from="PillArea" to="." method="_on_pill_area_body_entered"]

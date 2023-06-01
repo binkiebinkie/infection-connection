@@ -8,4 +8,4 @@ script = ExtResource("1_dugj7")
 [node name="DurationTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="TimeoutTimer" type="Timer" parent="."]
+[node name="CooldownTimer" type="Timer" parent="."]
